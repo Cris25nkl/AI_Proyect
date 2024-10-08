@@ -1,4 +1,4 @@
 # AI_Proyect
 
 # Principal concepts
-In this proyect we make a laberingth when we use DF algoritm
+In this proyect we make a labyrinth when we use DF algoritm
