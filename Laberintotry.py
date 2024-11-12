@@ -1,6 +1,17 @@
 import random
 import heapq
+from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
+
+colors = [
+    "#FFFFFF",  # Espacio vacío (blanco)
+    "#808080",  # Obstáculo (gris)
+    "#008F39",  # René (Verde)
+    "#FE0000",  # Elmo (Rojo)
+    "#FFD700",  # Galleta (amarillo)
+    "#FF69B4"   # Piggy (rosa)
+]
+cmap = ListedColormap(colors)
 
 # Definir el tablero y sus elementos
 class Board:
@@ -25,9 +36,7 @@ class Board:
         self.board[self.galleta_pos[0]][self.galleta_pos[1]] = 'G'  # Galleta
         self.board[self.piggy_pos[0]][self.piggy_pos[1]] = 'P'  # Piggy
 
-    def display(self):
-        for row in self.board:
-            print(' '.join(row))
+ 
 
 # Función para visualizar el tablero en tiempo real usando matplotlib
 def visualize_board(board):
@@ -45,7 +54,7 @@ def visualize_board(board):
     
     # Visualizar la matriz numérica
     plt.clf()
-    plt.imshow(numeric_board, cmap="Pastel1", vmin=0, vmax=6)
+    plt.imshow(numeric_board, cmap=cmap, vmin=0, vmax=6)
     plt.xticks([]), plt.yticks([])
     plt.draw()
     plt.pause(0.3)
@@ -102,7 +111,7 @@ def main(rene_pos, elmo_pos, galleta_pos, depth_limit, size, obstacles, piggy_po
             break  # Encontró a Elmo
         
         if current_cost_R >= depth_limit or current_pos_R in visited_R:
-            continue
+           continue
         visited_R.add(current_pos_R)     
         
         # Generar los movimientos posibles (arriba, abajo, izquierda, derecha)
@@ -175,15 +184,15 @@ def main(rene_pos, elmo_pos, galleta_pos, depth_limit, size, obstacles, piggy_po
     plt.show()
 
 # Parámetros del juego
-size = 6
-rene_start = (0, 0)
-elmo_start = (5, 5)
-galleta_start = (3, 3)
+size = 8
+rene_start = (0, 2)
+elmo_start = (7, 3)
+galleta_start = (3, 2)
 piggy_start = (5, 0)
-depth_limit = 15
+depth_limit = 20
 
 # Definir obstáculos (posiciones que no se pueden atravesar)
-obstacles = [(1, 1), (1, 2), (2, 2), (3, 1), (4, 4)]
+obstacles = [(1, 1), (1, 2), (5, 4), (4, 4), (3, 3), (7, 2), (6, 3)]
 
 # Iniciar la simulación
 main(rene_start, elmo_start, galleta_start, depth_limit, size, obstacles, piggy_start)
